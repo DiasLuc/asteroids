@@ -50,10 +50,17 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+            for shot in shots:
+                if asteroid.is_colliding(shot):
+                    asteroid.split()
+                    shot.kill()
+
         screen.fill("black")
 
         for obj in drawable:
             obj.draw(screen)
+
+
         
         # refreshes the screen; CALL THIS LAST AFTER DOING OTHER DRAW EVENTS!
             pygame.display.flip()
