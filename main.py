@@ -14,7 +14,10 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    #  middle of screen
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+     #  middle of screen
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
     player = Player(x, y)
@@ -24,11 +27,14 @@ def main():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
-        player.update(dt)
-        player.draw(screen)
+
+        for updatables in updatable:
+            updatables.update(dt)
+        for drawables in drawable:
+            drawables.draw(screen)
         
         # refreshes the screen; CALL THIS LAST AFTER DOING OTHER DRAW EVENTS!
-        pygame.display.flip()
+            pygame.display.flip()
 
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
