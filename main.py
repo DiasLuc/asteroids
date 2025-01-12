@@ -9,19 +9,28 @@ import pygame
 # from database import connect_database, database_version
 from constants import *
 from player import *
-
+from asteroid import *
+from asteroidfield import AsteroidField
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+
+    Asteroid.containers = (updatable, drawable, asteroids)
+    AsteroidField.containers = (updatable)
+    asteroid_field = AsteroidField()
+
     Player.containers = (updatable, drawable)
      #  middle of screen
-    x = SCREEN_WIDTH / 2
-    y = SCREEN_HEIGHT / 2
-    player = Player(x, y)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
     dt = 0
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
